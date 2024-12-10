@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notiefy-main-deployment
+spec:
+  selector:
+    matchLabels:
+      app: notiefy-main
+  template:
+    metadata:
+      labels:
+        app: notiefy-main
+    spec:
+      containers:
+      - name: notiefy-main
+        image: yuridiachenko/notiefy-main:latest
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8081
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://postgres-service:5432/notiefy-db
+        - name: SPRING_DATASOURCE_USERNAME
+          value: postgres
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: postgres
