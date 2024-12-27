@@ -1,0 +1,23 @@
+replicaCount: 1
+
+image:
+  repository: postgres
+  tag: 11-alpine
+  pullPolicy: Always
+
+resources:
+  limits:
+    memory: "1Gi"
+    cpu: "500m"
+
+pvc:
+  size: 1Gi
+
+service:
+  port: 5432
+  nodePort: 30000
+
+postgresql:
+  dbName: notiefy-db
+  user: postgres
+  password: postgres

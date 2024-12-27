@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: notiefy-main-deployment
 spec:
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: notiefy-main
@@ -13,17 +14,18 @@ spec:
     spec:
       containers:
       - name: notiefy-main
-        image: yuridiachenko/notiefy-main:latest
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         resources:
           limits:
-            memory: "1Gi"
-            cpu: "500m"
+            memory: "{{ .Values.resources.limits.memory }}"
+            cpu: "{{ .Values.resources.limits.cpu }}"
         ports:
         - containerPort: 8081
         env:
         - name: SPRING_DATASOURCE_URL
-          value: jdbc:postgresql://postgres-service:5432/notiefy-db
+          value: {{ .Values.env.SPRING_DATASOURCE_URL }}
         - name: SPRING_DATASOURCE_USERNAME
-          value: postgres
+          value: {{ .Values.env.SPRING_DATASOURCE_USERNAME }}
         - name: SPRING_DATASOURCE_PASSWORD
-          value: postgres
+          value: {{ .Values.env.SPRING_DATASOURCE_PASSWORD }}

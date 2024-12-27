@@ -1,0 +1,5 @@
+apiVersion: v2
+name: notiefy-chart
+description: A Helm chart for deploying the notiefy-main app
+version: 0.1.0
+appVersion: "latest"

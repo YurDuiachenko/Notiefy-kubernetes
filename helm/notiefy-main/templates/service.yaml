@@ -6,6 +6,6 @@ spec:
   selector:
     app: notiefy-main
   ports:
-  - port: 8081
+  - port: {{ .Values.service.port }}
     targetPort: 8081
-  type: NodePort
+  type: {{ .Values.service.type }}
